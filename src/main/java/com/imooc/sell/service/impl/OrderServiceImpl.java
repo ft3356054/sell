@@ -138,7 +138,7 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterRepository.save(orderMaster);
         if(updateResult == null){
             log.error("[取消订单]更新失败,orderMaster={}",orderMaster);
-            throw new SellException(ResultEnum.ORDER_UPDATE_FALL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         //返回库存
         if(CollectionUtils.isEmpty(orderDTO.getOrderDetailList())){
@@ -174,7 +174,7 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterRepository.save(orderMaster);
         if(updateResult == null){
             log.error("[完结订单]更新失败,orderMaster={}",orderMaster);
-            throw new SellException(ResultEnum.ORDER_UPDATE_FALL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
 
         return orderDTO;
@@ -200,9 +200,18 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterRepository.save(orderMaster);
         if(updateResult == null){
             log.error("[支付订单]更新失败,orderMaster={}",orderMaster);
-            throw new SellException(ResultEnum.ORDER_UPDATE_FALL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
 
         return orderDTO;
+    }
+
+    @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+
+        List<OrderDTO> orderDTOList = OrderMaster2OrderDTOconverter.convert(orderMasterPage.getContent());
+
+        return new PageImpl<>(orderDTOList, pageable, orderMasterPage.getTotalElements());
     }
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.sell.dataobject.OrderDetail;
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
+import com.imooc.sell.utils.EnumUtil;
 import com.imooc.sell.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -38,4 +39,11 @@ public class OrderDTO {
     private Date updateTime;
 
     private List<OrderDetail> orderDetailList;
+
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(orderStatus,OrderStatusEnum.class);
+    }
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getByCode(orderStatus,PayStatusEnum.class);
+    }
 }

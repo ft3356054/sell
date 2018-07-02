@@ -61,6 +61,17 @@
             <artifactId>weixin-java-mp</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <!-- 前端使用freemarker -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+        <!-- @ConfigurationProperties(prefix = "wechat") 需要引入 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>

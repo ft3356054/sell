@@ -41,15 +41,15 @@ public class SellerOrderController {
      */
     @GetMapping("/list")
     public ModelAndView list(@RequestParam(value = "page", defaultValue = "1") Integer page,
-                             @RequestParam(value = "size", defaultValue = "10") Integer size,
+                             @RequestParam(value = "size", defaultValue = "2") Integer size,
                              Map<String, Object> map) {
         PageRequest request = PageRequest.of(page - 1, size);
         Page<OrderDTO> orderDTOPage = orderService.findList(request);
         map.put("orderDTOPage", orderDTOPage);
         map.put("currentPage", page);
         map.put("size", size);
-        System.out.println("wechatAccountConfig.getTemplateId().get(\"orderStatus\") = "+wechatAccountConfig.getTemplateId());
-        System.out.println("wechatAccountConfig.getMpAppId()) = "+wechatAccountConfig.getMpAppId());
+        /*System.out.println("wechatAccountConfig.getTemplateId().get(\"orderStatus\") = "+wechatAccountConfig.getTemplateId());
+        System.out.println("wechatAccountConfig.getMpAppId()) = "+wechatAccountConfig.getMpAppId());*/
 //        orderDTOPage.getTotalPages()
         return new ModelAndView("order/list", map);
     }

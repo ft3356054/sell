@@ -44,6 +44,6 @@ public class OrderDTO {
         return EnumUtil.getByCode(orderStatus,OrderStatusEnum.class);
     }
     public PayStatusEnum getPayStatusEnum(){
-        return EnumUtil.getByCode(orderStatus,PayStatusEnum.class);
+        return EnumUtil.getByCode(payStatus,PayStatusEnum.class);
     }
 }

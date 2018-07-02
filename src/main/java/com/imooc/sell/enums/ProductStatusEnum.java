@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 @Date : 2018/6/12 16:19
 */
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum{
     UP(0,"在架"),
     DOWN(1,"下架") ;
 

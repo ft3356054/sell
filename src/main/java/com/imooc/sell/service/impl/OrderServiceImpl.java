@@ -50,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional    //使用事务一旦抛出异常就会回滚
     public OrderDTO create(OrderDTO orderDTO) {
-        String orderId = KeyUtil.genUnqueKey();
+        String orderId = KeyUtil.genUniqueKey();
         BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
         //入库方式1-1
         // List<CartDTO> cartDTOList = new ArrayList<CartDTO>();
@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
                     .add(orderAmount);
             //订单详情
             BeanUtils.copyProperties(productInfo,orderDetail);
-            orderDetail.setDetailId(KeyUtil.genUnqueKey());
+            orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetail.setOrderId(orderId);
             orderDetailRepository.save(orderDetail);
             //入库方式1-2

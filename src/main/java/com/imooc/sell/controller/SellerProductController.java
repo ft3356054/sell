@@ -4,9 +4,11 @@ package com.imooc.sell.controller;
 import com.imooc.sell.dataobject.ProductCategory;
 import com.imooc.sell.dataobject.ProductInfo;
 import com.imooc.sell.exception.SellException;
+import com.imooc.sell.form.ProductForm;
 import com.imooc.sell.service.CategoryService;
 import com.imooc.sell.service.ProductService;
 
+import com.imooc.sell.utils.KeyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -121,7 +123,7 @@ public class SellerProductController {
      * @param map
      * @return
      */
-    /*@PostMapping("/save")
+    @PostMapping("/save")
     public ModelAndView save(@Valid ProductForm form,
                              BindingResult bindingResult,
                              Map<String, Object> map) {
@@ -149,5 +151,5 @@ public class SellerProductController {
 
         map.put("url", "/sell/seller/product/list");
         return new ModelAndView("common/success", map);
-    }*/
+    }
 }

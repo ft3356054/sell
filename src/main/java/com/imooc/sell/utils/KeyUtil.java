@@ -1,17 +1,22 @@
 package com.imooc.sell.utils;
 
-/*
-@Author: llb
-@Date : 2018/6/19 13:29
-*/
-
 import java.util.Random;
 
+/**
+ * Created by 廖师兄
+ * 2017-06-11 19:12
+ */
 public class KeyUtil {
-    //生成主键  时间+随机数
-    public static  synchronized  String genUnqueKey(){
+
+    /**
+     * 生成唯一的主键
+     * 格式: 时间+随机数
+     * @return
+     */
+    public static synchronized String genUniqueKey() {
         Random random = new Random();
-        Integer number = random.nextInt(900000)+100000;
+        Integer number = random.nextInt(900000) + 100000;
+
         return System.currentTimeMillis() + String.valueOf(number);
     }
 }

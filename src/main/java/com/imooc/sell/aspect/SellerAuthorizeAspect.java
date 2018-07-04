@@ -37,7 +37,7 @@ public class SellerAuthorizeAspect {
 
     @Before("verify()")
     public void doVerify() {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        /*ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
 
         //查询cookie
@@ -52,6 +52,6 @@ public class SellerAuthorizeAspect {
         if (StringUtils.isEmpty(tokenValue)) {
             log.warn("【登录校验】Redis中查不到token");
             throw new SellerAuthorizeException();
-        }
+        }*/
     }
 }

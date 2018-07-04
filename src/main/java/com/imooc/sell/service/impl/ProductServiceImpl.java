@@ -27,8 +27,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductInfo findOne(String productId) {
-        final Optional<ProductInfo> byId = repository.findById(productId);
-        return byId.get();
+        Optional<ProductInfo> byId = repository.findById(productId);
+        if (byId.isPresent()){
+            return byId.get();
+        }else
+            return null;
     }
 
     @Override

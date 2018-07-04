@@ -11,9 +11,12 @@ import com.imooc.sell.dto.OrderDTO;
 import com.imooc.sell.enums.OrderStatusEnum;
 import com.imooc.sell.enums.PayStatusEnum;
 import com.imooc.sell.enums.ResultEnum;
+import com.imooc.sell.exception.ResponseBankException;
 import com.imooc.sell.exception.SellException;
 import com.imooc.sell.service.OrderService;
 import com.imooc.sell.service.ProductService;
+import com.imooc.sell.service.PushMessageService;
+import com.imooc.sell.service.WebSocket;
 import com.imooc.sell.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -47,6 +50,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMasterRepository orderMasterRepository;
 
+    @Autowired
+    private PushMessageService pushMessageService;
+    @Autowired
+    private WebSocket webSocket;
+
     @Override
     @Transactional    //使用事务一旦抛出异常就会回滚
     public OrderDTO create(OrderDTO orderDTO) {
@@ -59,7 +67,9 @@ public class OrderServiceImpl implements OrderService {
         for(OrderDetail orderDetail : orderDTO.getOrderDetailList()){
             ProductInfo productInfo =  productService.findOne(orderDetail.getProductId());
             if(productInfo == null){
-                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST  );
+                //throw new SellException(ResultEnum.PRODUCT_NOT_EXIST  );
+                //银行抛出异常 修改httpcode 不返回200
+                throw new ResponseBankException();
             }
             //2 . 计算订单总价
             orderAmount = productInfo.getProductPrice()
@@ -91,6 +101,9 @@ public class OrderServiceImpl implements OrderService {
         ).collect(Collectors.toList());
 
         productService.decreaseStock(cartDTOList);
+
+        //发送websocket消息
+        webSocket.sendMessage("有新的订单");
 
         return orderDTO;
     }

@@ -3,6 +3,7 @@ package com.imooc.sell.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /*
@@ -11,7 +12,10 @@ import java.math.BigDecimal;
 @Date : 2018/6/13 16:45
 */
 @Data
-public class ProductInfoVO {
+public class ProductInfoVO implements Serializable {
+    //前端展示添加序列化
+
+
     @JsonProperty("id")
     private String productId;
     @JsonProperty("name")

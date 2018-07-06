@@ -67,9 +67,9 @@ public class OrderServiceImpl implements OrderService {
         for(OrderDetail orderDetail : orderDTO.getOrderDetailList()){
             ProductInfo productInfo =  productService.findOne(orderDetail.getProductId());
             if(productInfo == null){
-                //throw new SellException(ResultEnum.PRODUCT_NOT_EXIST  );
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST  );
                 //银行抛出异常 修改httpcode 不返回200
-                throw new ResponseBankException();
+                //throw new ResponseBankException();
             }
             //2 . 计算订单总价
             orderAmount = productInfo.getProductPrice()
